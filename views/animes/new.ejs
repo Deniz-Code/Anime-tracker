@@ -1,0 +1,17 @@
+<%- include('../partials/html-head') %>
+<link rel="stylesheet" href="/stylesheets/animes/new.css" />
+
+<%- include('../partials/nav') %>
+
+<main>
+  <h1><%= title %></h1>
+  <form id="new-form" action="/animes" method="post">
+    <label for="title-input">Enter the anime name</label>
+    <input type="text" name="name" id="title-input" />
+    <label for="cool-anime">Is this anime cool ?</label>
+    <input type="checkbox" name="cool" checked id="cool-anime" />
+    <button type="submit">Add Anime</button>
+  </form>
+</main>
+
+<%- include('../partials/footer') %>

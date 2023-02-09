@@ -1,0 +1,10 @@
+<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+
+<section>
+  <h1>Animes!!!</h1>
+</section>
+
+<% animes.forEach(anime => { %>
+<a href="/animes/<%= anime._id %>"> <%= anime.name %> </a>
+<%= anime.cool ? "and its pretty cool" : "its bad" %> <% }) %>
+<%-include('../partials/footer') %>
