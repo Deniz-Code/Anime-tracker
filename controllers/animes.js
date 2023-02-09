@@ -2,6 +2,7 @@ import { Anime } from "../models/anime.js"
 
 function index(req, res) {
   Anime.find({})
+    .populate("owner")
     .then((animes) => {
       res.render("animes/index", {
         animes,
@@ -47,4 +48,36 @@ function show(req, res) {
     })
 }
 
-export { index, newAnime as new, create, show }
+function edit(req, res) {
+  Anime.findById(req.params.id)
+    .then((anime) => {
+      res.render("animes/edit", {
+        anime,
+        title: "Edit anime",
+      })
+    })
+    .catch((err) => {
+      console.log(err)
+      res.redirect("/animes")
+    })
+}
+
+function update(req, res) {
+  Anime.findById(req.params.id)
+    .then((anime) => {
+      if (anime.owner.equals(req.user.profile._id)) {
+        req.body.cool = !!req.body.cool
+        anime.updateOne(req.body, { new: true })
+        .then(() => {
+          res.redirect(`/animes/${anime._id}`)
+        })
+      } else {
+        throw new Error("🚫 Not authorized 🚫")
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      res.redirect(`/animes`)
+    })
+}
+export { index, newAnime as new, create, show, edit, update }

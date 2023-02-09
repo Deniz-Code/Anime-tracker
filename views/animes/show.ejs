@@ -1,1 +1,18 @@
-<h1>helo</h1>
+<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+
+<section>
+  <p>Presented by <%= anime.owner.name %></p>
+  <h1><%= anime.name %></h1>
+  <h2>This anime is <%= anime.cool ? 'Cool! 😋' : 'Not Cool! 😫' %></h2>
+
+  <% if (anime.owner.equals(user?.profile._id)) { %>
+  <form action="/animes/<%= anime._id %>/edit" method="GET">
+    <button type="submit">Edit this anime 🚧</button>
+  </form>
+  <form action="/animes/<%= anime._id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete this anime 💀</button>
+  </form>
+  <% } %>
+</section>
+
+<%- include('../partials/footer') %>

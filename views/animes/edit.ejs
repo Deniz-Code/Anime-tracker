@@ -1,0 +1,22 @@
+<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+
+<section>
+  <h1>Edit the anime</h1>
+  <form action="/animes/<%= anime._id %>?_method=PUT" method="POST">
+    <label>
+      Name:
+      <input
+        type="text"
+        name="name"
+        value="<%= anime.name %>"
+        autocomplete="off"
+    /></label>
+    <label>
+      Cool? <input type="checkbox" name="cool" <%= anime.cool ? "checked" : ""
+      %> >
+    </label>
+    <button type="submit">Edit the anime</button>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>

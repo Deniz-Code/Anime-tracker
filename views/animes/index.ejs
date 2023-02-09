@@ -5,6 +5,9 @@
 </section>
 
 <% animes.forEach(anime => { %>
-<a href="/animes/<%= anime._id %>"> <%= anime.name %> </a>
-<%= anime.cool ? "and its pretty cool" : "its bad" %> <% }) %>
-<%-include('../partials/footer') %>
+<div>
+  <a href="/animes/<%= anime._id %>"> <%= anime.name %> </a>
+  <%= anime.cool ? "is pretty cool" : "its bad" %> and was added by <%=anime.owner.name
+  %>
+</div>
+<%})%> <%-include('../partials/footer') %>
