@@ -11,5 +11,6 @@ router.get("/:id/edit", isLoggedIn, animesCtrl.edit)
 
 router.post("/", animesCtrl.create)
 router.put("/:id", isLoggedIn, animesCtrl.update)
+router.delete("/:id", isLoggedIn, animesCtrl.delete)
 
 export { router }

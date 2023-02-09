@@ -1,0 +1,47 @@
+<%- include('../partials/html-head') %> <%- include('../partials/nav') %>
+
+<main>
+  <div>
+    <img
+      class="profile-avatar"
+      src="<%= profile.avatar %>"
+      alt="<%= profile.name %> avatar"
+    />
+  </div>
+  <h1>It's <%= isSelf ? "you" : profile.name %>!</h1>
+  <% if (isSelf) { %>
+  <h2>Add a watched anime :D</h2>
+  <form action="/profiles/<%= profile._id %>/watched" method="POST">
+    <label>
+      Name:
+      <input type="text" name="name" autocomplete="off" />
+    </label>
+    <label>
+      Rate from 0 to 10:
+      <input type="number" max="10" name="rate" autocomplete="off" />
+    </label>
+    <label>
+      Favourite character:
+      <input type="text" name="character" autocomplete="off" />
+    </label>
+    <button type="submit">Add Watched Anime</button>
+  </form>
+  <% } %> 
+  <% profile.animes.forEach(anime => { %>
+  <h2>
+    <%= profile.name %> has watched <%= anime.name %> and has given it a rate of <%= anime.rate %> and his favourite character was <%= anime.character %> </h2>
+    
+   <% if (isSelf) { %>
+  
+  <form
+    action="/profiles/animes/<%= anime._id %>?_method=DELETE"
+    method="POST"
+    style="display: inline-block"
+  >
+    <button type="submit">Delete <%= anime.name %></button>
+  </form>
+  <% } %> 
+  <% }) %>
+</main>
+
+<%- include('../partials/footer') %>

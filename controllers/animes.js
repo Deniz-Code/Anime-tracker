@@ -67,8 +67,7 @@ function update(req, res) {
     .then((anime) => {
       if (anime.owner.equals(req.user.profile._id)) {
         req.body.cool = !!req.body.cool
-        anime.updateOne(req.body, { new: true })
-        .then(() => {
+        anime.updateOne(req.body, { new: true }).then(() => {
           res.redirect(`/animes/${anime._id}`)
         })
       } else {
@@ -80,4 +79,30 @@ function update(req, res) {
       res.redirect(`/animes`)
     })
 }
-export { index, newAnime as new, create, show, edit, update }
+
+function deleteAnime(req, res) {
+  Anime.findById(req.params.id)
+    .then((anime) => {
+      if (anime.owner.equals(req.user.profile._id)) {
+        anime.delete().then(() => {
+          res.redirect(`/animes`)
+        })
+      } else {
+        throw new Error("🚫 Not authorized 🚫")
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      res.redirect(`/animes`)
+    })
+}
+
+export {
+  index,
+  newAnime as new,
+  create,
+  show,
+  edit,
+  update,
+  deleteAnime as delete,
+}
